@@ -149,7 +149,8 @@
 
 #if ENABLED(IS_RAMPS_EFB)                      // Hotend, Fan, Bed
 #define FAN_PIN        RAMPS_D9_PIN
-#define FAN1_PIN       44 // hotend cooling fan
+//#define FAN1_PIN       44 // hotend cooling fan
+#define ORIG_E0_AUTO_FAN_PIN 44
 #define HEATER_BED_PIN RAMPS_D8_PIN
 #elif ENABLED(IS_RAMPS_EEF)                    // Hotend, Hotend, Fan
 #define HEATER_1_PIN   RAMPS_D9_PIN
