@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Marlin 3D Printer Firmware
  * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
@@ -497,11 +497,11 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -599,7 +599,7 @@
 // For example an inductive probe, or a setup that uses the nozzle to probe.
 // An inductive probe must be deactivated to go below
 // its trigger-point if hardware endstops are active.
-#define FIX_MOUNTED_PROBE
+//#define FIX_MOUNTED_PROBE
 
 // The BLTouch probe emulates a servo probe.
 // The default connector is SERVO 0. Set Z_ENDSTOP_SERVO_NR below to override.
@@ -630,61 +630,65 @@
 //    |           |
 //    O-- FRONT --+
 //  (0,0)
-#define X_PROBE_OFFSET_FROM_EXTRUDER 0.0     // Z probe to nozzle X offset: -left  +right
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 0.0     // Z probe to nozzle Y offset: -front +behind
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -25.0     // Z probe to nozzle Z offset: -below (always!)
+#define X_PROBE_OFFSET_FROM_EXTRUDER -33.0     // Z probe to nozzle X offset: -left  +right
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 21.4     // Z probe to nozzle Y offset: -front +behind
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -5.8      // Z probe to nozzle Z offset: -below (always!)
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 8000
+#define XY_PROBE_SPEED 5000
+
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+
 // Speed for the "accurate" probe of each point
+
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+
 // Use double touch for probing
 #define PROBE_DOUBLE_TOUCH
 
 // Allen key retractable z-probe as seen on many Kossel delta printers - http://reprap.org/wiki/Kossel#Automatic_bed_leveling_probe
 // Deploys by touching z-axis belt. Retracts by pushing the probe down. Uses Z_MIN_PIN.
-//#define Z_PROBE_ALLEN_KEY
+#define Z_PROBE_ALLEN_KEY
 
 #if ENABLED(Z_PROBE_ALLEN_KEY)
   // 2 or 3 sets of coordinates for deploying and retracting the spring loaded touch probe on G29,
   // if servo actuated touch probe is not defined. Uncomment as appropriate for your printer/probe.
 
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_1_X 30.0
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_1_Y DELTA_PRINTABLE_RADIUS
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_1_Z 100.0
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_1_FEEDRATE XY_PROBE_SPEED
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_1_X -102
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_1_Y -30
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_1_Z 50.0
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_1_FEEDRATE XY_PROBE_SPEED
 
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_2_X 0.0
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_2_Y DELTA_PRINTABLE_RADIUS
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_2_Z 100.0
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_2_FEEDRATE (XY_PROBE_SPEED)/10
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_2_X -87
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_2_Y -51
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_2_Z 50.0
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_2_FEEDRATE (XY_PROBE_SPEED)/5
 
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_3_X Z_PROBE_ALLEN_KEY_DEPLOY_2_X * 0.75
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_3_Y Z_PROBE_ALLEN_KEY_DEPLOY_2_Y * 0.75
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_3_Z Z_PROBE_ALLEN_KEY_DEPLOY_2_Z
-  //#define Z_PROBE_ALLEN_KEY_DEPLOY_3_FEEDRATE XY_PROBE_SPEED
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_3_X Z_PROBE_ALLEN_KEY_DEPLOY_2_X * 0.75
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_3_Y Z_PROBE_ALLEN_KEY_DEPLOY_2_Y * 0.75
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_3_Z Z_PROBE_ALLEN_KEY_DEPLOY_2_Z
+	#define Z_PROBE_ALLEN_KEY_DEPLOY_3_FEEDRATE XY_PROBE_SPEED
 
-  //#define Z_PROBE_ALLEN_KEY_STOW_1_X -64.0 // Move the probe into position
-  //#define Z_PROBE_ALLEN_KEY_STOW_1_Y 56.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_1_Z 23.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_1_FEEDRATE XY_PROBE_SPEED
+	#define Z_PROBE_ALLEN_KEY_STOW_1_X -46.6 // Move the probe into position
+	#define Z_PROBE_ALLEN_KEY_STOW_1_Y -90.4
+	#define Z_PROBE_ALLEN_KEY_STOW_1_Z 27.0
+	#define Z_PROBE_ALLEN_KEY_STOW_1_FEEDRATE XY_PROBE_SPEED
 
-  //#define Z_PROBE_ALLEN_KEY_STOW_2_X -64.0 // Push it down
-  //#define Z_PROBE_ALLEN_KEY_STOW_2_Y 56.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_2_Z 3.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_2_FEEDRATE (XY_PROBE_SPEED)/10
+	#define Z_PROBE_ALLEN_KEY_STOW_2_X -46.6 // Push it down
+	#define Z_PROBE_ALLEN_KEY_STOW_2_Y -90.4
+	#define Z_PROBE_ALLEN_KEY_STOW_2_Z 12.6
+	#define Z_PROBE_ALLEN_KEY_STOW_2_FEEDRATE (XY_PROBE_SPEED)/5
 
-  //#define Z_PROBE_ALLEN_KEY_STOW_3_X -64.0 // Move it up to clear
-  //#define Z_PROBE_ALLEN_KEY_STOW_3_Y 56.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_3_Z 50.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_3_FEEDRATE XY_PROBE_SPEED
+	#define Z_PROBE_ALLEN_KEY_STOW_3_X -46.6 // Move it up to clear
+	#define Z_PROBE_ALLEN_KEY_STOW_3_Y -90.4
+	#define Z_PROBE_ALLEN_KEY_STOW_3_Z 27.0
+	#define Z_PROBE_ALLEN_KEY_STOW_3_FEEDRATE (XY_PROBE_SPEED)/2
 
-  //#define Z_PROBE_ALLEN_KEY_STOW_4_X 0.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_4_Y 0.0
-  //#define Z_PROBE_ALLEN_KEY_STOW_4_Z Z_PROBE_ALLEN_KEY_STOW_3_Z
-  //#define Z_PROBE_ALLEN_KEY_STOW_4_FEEDRATE XY_PROBE_SPEED
+	#define Z_PROBE_ALLEN_KEY_STOW_4_X Z_PROBE_ALLEN_KEY_STOW_3_X * 0.75
+	#define Z_PROBE_ALLEN_KEY_STOW_4_Y Z_PROBE_ALLEN_KEY_STOW_3_Y * 0.75
+	#define Z_PROBE_ALLEN_KEY_STOW_4_Z Z_PROBE_ALLEN_KEY_STOW_3_Z
+	#define Z_PROBE_ALLEN_KEY_STOW_4_FEEDRATE XY_PROBE_SPEED
 
 #endif // Z_PROBE_ALLEN_KEY
 
@@ -732,7 +736,7 @@
 // To use a probe you must enable one of the two options above!
 
 // Enable Z Probe Repeatability test to see how accurate your probe is
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -900,11 +904,12 @@
 
   // Set the number of grid points per dimension.
   // Works best with 5 or more points in each dimension.
-  #define ABL_GRID_MAX_POINTS_X 5
+  #define ABL_GRID_MAX_POINTS_X 7
   #define ABL_GRID_MAX_POINTS_Y ABL_GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 30)
+  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 65)
+
   #define LEFT_PROBE_BED_POSITION -(DELTA_PROBEABLE_RADIUS)
   #define RIGHT_PROBE_BED_POSITION DELTA_PROBEABLE_RADIUS
   #define FRONT_PROBE_BED_POSITION - (DELTA_PROBEABLE_RADIUS)
@@ -964,7 +969,7 @@
 // For DELTA this is the top-center of the Cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 296.5 // Distance between the nozzle to printbed after homing
+#define MANUAL_Z_HOME_POS 295.8 // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -982,7 +987,7 @@
 #endif
 
 // Delta only homes to Z
-#define HOMING_FEEDRATE_Z  (60*60)
+#define HOMING_FEEDRATE_Z  (80*60)
 
 //=============================================================================
 //============================= Additional Features ===========================
