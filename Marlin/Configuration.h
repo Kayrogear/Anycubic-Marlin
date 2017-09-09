@@ -488,18 +488,20 @@
   #define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-(DELTA_EFFECTOR_OFFSET)-(DELTA_CARRIAGE_OFFSET))
 
   // height from z=0 to home position
-  #define DELTA_HEIGHT 295.80 // get this value from auto calibrate
-
-  #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // get these from auto calibrate
-
+  #define DELTA_HEIGHT 296.40 // get this value from auto calibrate
+  
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
   // measured in degrees anticlockwise looking from above the printer
   #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } // get these values from auto calibrate
 
   // delta radius and diaginal rod adjustments measured in mm
-  //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
-  //#define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
+  #define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
+  
+  // Корректировка размеров детали по осям башен ABC
+  #define DELTA_DIAGONAL_ROD_TRIM_TOWER { 0.0, 0.0, 0.0 }
+
+  #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // get these from auto calibrate
 
   // After homing move down to a height where XY movement is unconstrained
   #define DELTA_HOME_TO_SAFE_ZONE
@@ -521,7 +523,7 @@
 
   #if ENABLED(DELTA_AUTO_CALIBRATION) || ENABLED(DELTA_CALIBRATION_MENU)
     // Set the radius for the calibration probe points - max DELTA_PRINTABLE_RADIUS*0.869 for non-eccentric probes
-    #define DELTA_CALIBRATION_RADIUS 115 // mm
+    #define DELTA_CALIBRATION_RADIUS ((DELTA_PRINTABLE_RADIUS) * 0.869 - HYPOT(X_PROBE_OFFSET_FROM_EXTRUDER,Y_PROBE_OFFSET_FROM_EXTRUDER)) // mm
     // Set the steprate for papertest probing
     #define PROBE_MANUALLY_STEP 0.025
   #endif
@@ -751,12 +753,12 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER -33.0     // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -21.4   // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -5.8  // Z offset: -below +above  [the nozzle]
+#define X_PROBE_OFFSET_FROM_EXTRUDER -33     // X offset: -left  +right  [of the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -21   // Y offset: -front +behind [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -5.7  // Z offset: -below +above  [the nozzle]
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 4000
+#define XY_PROBE_SPEED 5000
 
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
@@ -777,13 +779,13 @@
   // 2 or 3 sets of coordinates for deploying and retracting the spring loaded touch probe on G29,
   // if servo actuated touch probe is not defined. Uncomment as appropriate for your printer/probe.
 
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_1_X -102
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_1_Y -30
+  #define Z_PROBE_ALLEN_KEY_DEPLOY_1_X -104
+  #define Z_PROBE_ALLEN_KEY_DEPLOY_1_Y -34
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1_Z 50.0
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1_FEEDRATE XY_PROBE_SPEED
 
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_2_X -87
-  #define Z_PROBE_ALLEN_KEY_DEPLOY_2_Y -51
+  #define Z_PROBE_ALLEN_KEY_DEPLOY_2_X -90.2
+  #define Z_PROBE_ALLEN_KEY_DEPLOY_2_Y -55
   #define Z_PROBE_ALLEN_KEY_DEPLOY_2_Z 50.0
   #define Z_PROBE_ALLEN_KEY_DEPLOY_2_FEEDRATE (XY_PROBE_SPEED)/5
 
@@ -792,19 +794,19 @@
   #define Z_PROBE_ALLEN_KEY_DEPLOY_3_Z Z_PROBE_ALLEN_KEY_DEPLOY_2_Z
   #define Z_PROBE_ALLEN_KEY_DEPLOY_3_FEEDRATE XY_PROBE_SPEED
 
-  #define Z_PROBE_ALLEN_KEY_STOW_1_X -46.6 // Move the probe into position
-  #define Z_PROBE_ALLEN_KEY_STOW_1_Y -90.4
-  #define Z_PROBE_ALLEN_KEY_STOW_1_Z 27.0
+  #define Z_PROBE_ALLEN_KEY_STOW_1_X -49.8 // Move the probe into position
+  #define Z_PROBE_ALLEN_KEY_STOW_1_Y -93.8
+  #define Z_PROBE_ALLEN_KEY_STOW_1_Z 30.0
   #define Z_PROBE_ALLEN_KEY_STOW_1_FEEDRATE XY_PROBE_SPEED
 
-  #define Z_PROBE_ALLEN_KEY_STOW_2_X -46.6 // Push it down
-  #define Z_PROBE_ALLEN_KEY_STOW_2_Y -90.4
-  #define Z_PROBE_ALLEN_KEY_STOW_2_Z 12.6
+  #define Z_PROBE_ALLEN_KEY_STOW_2_X -49.8 // Push it down
+  #define Z_PROBE_ALLEN_KEY_STOW_2_Y -93.8
+  #define Z_PROBE_ALLEN_KEY_STOW_2_Z 14.2
   #define Z_PROBE_ALLEN_KEY_STOW_2_FEEDRATE (XY_PROBE_SPEED)/5
 
-  #define Z_PROBE_ALLEN_KEY_STOW_3_X -46.6 // Move it up to clear
-  #define Z_PROBE_ALLEN_KEY_STOW_3_Y -90.4
-  #define Z_PROBE_ALLEN_KEY_STOW_3_Z 27.0
+  #define Z_PROBE_ALLEN_KEY_STOW_3_X -49.8 // Move it up to clear
+  #define Z_PROBE_ALLEN_KEY_STOW_3_Y -93.8
+  #define Z_PROBE_ALLEN_KEY_STOW_3_Z 30.0
   #define Z_PROBE_ALLEN_KEY_STOW_3_FEEDRATE (XY_PROBE_SPEED)/2
 
   #define Z_PROBE_ALLEN_KEY_STOW_4_X Z_PROBE_ALLEN_KEY_STOW_3_X * 0.75
@@ -976,7 +978,7 @@
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of PROGMEM!
  */
-//#define DEBUG_LEVELING_FEATURE
+#define DEBUG_LEVELING_FEATURE
 
 #if ENABLED(MESH_BED_LEVELING) || ENABLED(AUTO_BED_LEVELING_BILINEAR) || ENABLED(AUTO_BED_LEVELING_UBL)
   // Gradually reduce leveling correction until a set height is reached,
@@ -985,7 +987,7 @@
   #define ENABLE_LEVELING_FADE_HEIGHT
 
   // Set the boundaries for probing (where the probe can reach).
-  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 50)
+  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 65)
 
 #endif
 
@@ -1017,7 +1019,7 @@
     // Experimental Subdivision of the grid by Catmull-Rom method.
     // Synthesizes intermediate points to produce a more detailed mesh.
     //
-    //#define ABL_BILINEAR_SUBDIVISION
+    #define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
       // Number of subdivisions between probe points
       #define BILINEAR_SUBDIVISIONS 3
