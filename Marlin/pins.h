@@ -44,7 +44,7 @@
 #elif MB(MIGHTYBOARD_REVE)
   #include "pins_MIGHTYBOARD_REVE.h"
 #elif MB(TRIGORILLA)
-#include "pins_TRIGORILLA.h"
+  #include "pins_TRIGORILLA.h"
 #elif MB(RAMPS_OLD)
   #include "pins_RAMPS_OLD.h"
 #elif MB(RAMPS_13_EFB)
